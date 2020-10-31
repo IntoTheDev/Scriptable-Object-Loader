@@ -17,7 +17,7 @@ Creating config:
 
 Now you need to create an asset and put it in Resources folder
 
-Receive data:
+Get Data from Config:
 
 ```csharp
 	public class Player : MonoBehaviour
