@@ -1,0 +1,2 @@
+# Configs
+Scriptable Object Configs
