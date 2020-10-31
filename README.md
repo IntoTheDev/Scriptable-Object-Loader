@@ -3,7 +3,7 @@ Scriptable Object Configs for data storage
 
 ## Usage
 
-Writing config:
+Creating config:
 
 ```csharp
 	[CreateAssetMenu(menuName = "Game/Configs/Player")]
