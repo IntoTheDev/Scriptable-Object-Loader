@@ -19,12 +19,8 @@ public abstract class Config
 	public static T Get<T>() where T : Config
 	{
 		for (int i = 0; i < _configs.Length; i++)
-		{
-			var possibleConfig = _configs[i];
-
-			if (possibleConfig is T config)
+			if (_configs[i] is T config)
 				return config;
-		}
 
 		return null;
 	}
