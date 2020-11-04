@@ -20,10 +20,10 @@ public abstract class Config
 	{
 		for (int i = 0; i < _configs.Length; i++)
 		{
-			var config = _configs[i];
+			var possibleConfig = _configs[i];
 
-			if (config is T)
-				return config as T;
+			if (possibleConfig is T config)
+				return config;
 		}
 
 		return null;
