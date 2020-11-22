@@ -9,9 +9,9 @@ Creating Config:
 	[CreateAssetMenu(menuName = "Game/Configs/Player")]
 	public class PlayerConfig : Config
 	{
-		[SerializeField] private float _startPlayerHealth = 100f;
+		[SerializeField] private float _startHealth = 100f;
 
-		public float StartPlayerHealth => _startPlayerHealth;
+		public float StartHealth => _startHealth;
 	}
 ```
 
@@ -26,7 +26,7 @@ Get Data from Config:
 
 		private void Awake()
 		{
-			_health = Config.Get<PlayerConfig>().StartPlayerHealth;
+			_health = Config.Get<PlayerConfig>().StartHealth;
 		}
 	}
 ```
