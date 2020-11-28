@@ -3,7 +3,7 @@ Load Scriptable Objects via code
 
 ## Usage
 
-Creating ScriptableObject:
+### Creating ScriptableObject:
 
 ```csharp
 	[CreateAssetMenu(menuName = "Game/Configs/Player")]
@@ -17,7 +17,7 @@ Creating ScriptableObject:
 
 Now you need to create an asset and put it in Resources folder
 
-Get Data from ScriptableObject:
+### Get Data from ScriptableObject:
 
 ```csharp
 	public class Player : MonoBehaviour
