@@ -2,11 +2,7 @@ using UnityEngine;
 
 public static class Storage
 {
-	private static ScriptableObject[] _assets = null;
-
-	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-	private static void Load() =>
-		_assets = Resources.LoadAll<ScriptableObject>("");
+	private static ScriptableObject[] _assets = Resources.LoadAll<ScriptableObject>("");
 
 	public static T Get<T>() where T : ScriptableObject
 	{
