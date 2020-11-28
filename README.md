@@ -1,4 +1,4 @@
-# Configs
+# Scriptable Object Loader
 Load Scriptable Objects via code
 
 ## Usage
