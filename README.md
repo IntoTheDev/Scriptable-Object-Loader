@@ -7,13 +7,16 @@ Load Scriptable Objects via code
 Your ```ScriptableObject``` must implement ```ILoadable``` interface.
 
 ```csharp
-	[CreateAssetMenu(menuName = "Game/Configs/Player")]
-	public class PlayerConfig : ScriptableObject, ILoadable
-	{
-		[SerializeField] private float _startHealth = 100f;
+using ToolBox.Loader;
+using UnityEngine;
 
-		public float StartHealth => _startHealth;
-	}
+[CreateAssetMenu(menuName = "Game/Configs/Player")]
+public class PlayerConfig : ScriptableObject, ILoadable
+{
+	[SerializeField] private float _startHealth = 100f;
+
+	public float StartHealth => _startHealth;
+}
 ```
 
 Now you need to create an asset.
