@@ -22,11 +22,16 @@ namespace ToolBox.Loader
 
 		public static T Get<T>() where T : ScriptableObject, ILoadable
 		{
+#if UNITY_EDITOR
+			if (!Application.isPlaying)
+				_assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
+#endif
+
 			for (int i = 0; i < _assets.Length; i++)
 				if (_assets[i] is T asset)
 					return asset;
 
-			return default;
+			return null;
 		}
 	}
 
