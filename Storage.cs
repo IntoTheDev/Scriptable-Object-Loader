@@ -1,11 +1,11 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEngine;
 
 namespace ToolBox.Loader
 {
 	public static class Storage
 	{
-		private static ILoadable[] _assets = null;
+		private static ScriptableObject[] _assets = null;
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void Setup()
@@ -17,11 +17,10 @@ namespace ToolBox.Loader
 #endif
 			_assets = assets
 				.Where(x => x is ILoadable)
-				.Cast<ILoadable>()
 				.ToArray();
 		}
 
-		public static T Get<T>() where T : ILoadable
+		public static T Get<T>() where T : ScriptableObject, ILoadable
 		{
 			for (int i = 0; i < _assets.Length; i++)
 				if (_assets[i] is T asset)
