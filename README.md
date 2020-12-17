@@ -23,13 +23,13 @@ Now you need to create an asset.
 ```csharp
 using ToolBox.Loader;
 
-	public class Player : MonoBehaviour
-	{
-		private float _health = 0f;
+public class Player : MonoBehaviour
+{
+	private float _health = 0f;
 
-		private void Awake()
-		{
-			_health = Storage.Get<PlayerConfig>().StartHealth;
-		}
+	private void Awake()
+	{
+		_health = Storage.Get<PlayerConfig>().StartHealth;
 	}
+}
 ```
