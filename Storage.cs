@@ -19,8 +19,6 @@ namespace ToolBox.Loader
 				.Where(x => x is ILoadable)
 				.Cast<ILoadable>()
 				.ToArray();
-
-			Debug.LogError($"Assets count: {_assets.Length}");
 		}
 
 		public static T Get<T>() where T : ILoadable
