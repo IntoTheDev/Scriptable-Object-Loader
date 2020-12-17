@@ -25,6 +25,7 @@ Now you need to create an asset.
 
 ```csharp
 using ToolBox.Loader;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
