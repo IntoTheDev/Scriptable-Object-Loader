@@ -36,3 +36,7 @@ public class Player : MonoBehaviour
 	}
 }
 ```
+
+### TODO
+- [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```
+- [ ] Git Package
