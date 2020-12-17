@@ -30,7 +30,6 @@ namespace ToolBox.Loader
 				AssetDatabase.CreateFolder("Assets", "Resources");
 
 			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>().Where(x => x is ILoadable);
-			Debug.Log(loadables.Count());
 
 			foreach (var loadable in loadables)
 			{
