@@ -11,19 +11,6 @@ namespace ToolBox.Loader
 	{
 		public int callbackOrder => 0;
 
-		public void OnPostprocessBuild(BuildReport report)
-		{
-			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>()
-				.Where(x => x is ILoadable 
-				&& AssetDatabase.GetAssetPath(x).Contains("Resources"));
-
-			foreach (var loadable in loadables)
-				Object.DestroyImmediate(loadable, true);
-
-			AssetDatabase.SaveAssets();
-			AssetDatabase.Refresh();
-		}
-
 		public void OnPreprocessBuild(BuildReport report)
 		{
 			if (!AssetDatabase.IsValidFolder("Assets/Resources"))
@@ -38,6 +25,19 @@ namespace ToolBox.Loader
 
 				AssetDatabase.CreateAsset(copy, path);
 			}
+
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
+		}
+
+		public void OnPostprocessBuild(BuildReport report)
+		{
+			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>()
+				.Where(x => x is ILoadable 
+				&& AssetDatabase.GetAssetPath(x).Contains("Resources"));
+
+			foreach (var loadable in loadables)
+				Object.DestroyImmediate(loadable, true);
 
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
