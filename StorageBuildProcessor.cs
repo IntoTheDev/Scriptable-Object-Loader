@@ -9,6 +9,8 @@ namespace ToolBox.Loader
 {
 	public class StorageBuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
 	{
+		private ScriptableObject[] _loadables = null;
+
 		public int callbackOrder => 0;
 
 		public void OnPreprocessBuild(BuildReport report)
@@ -16,14 +18,17 @@ namespace ToolBox.Loader
 			if (!AssetDatabase.IsValidFolder("Assets/Resources"))
 				AssetDatabase.CreateFolder("Assets", "Resources");
 
-			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>().Where(x => x is ILoadable);
+			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>().Where(x => x is ILoadable).ToArray();
+			_loadables = new ScriptableObject[loadables.Length];
 
-			foreach (var loadable in loadables)
+			for (int i = 0; i < loadables.Length; i++)
 			{
+				var loadable = loadables[i];
 				var copy = Object.Instantiate(loadable);
 				var path = $"Assets/Resources/{loadable.name}.asset";
 
 				AssetDatabase.CreateAsset(copy, path);
+				_loadables[i] = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
 			}
 
 			AssetDatabase.SaveAssets();
@@ -32,11 +37,7 @@ namespace ToolBox.Loader
 
 		public void OnPostprocessBuild(BuildReport report)
 		{
-			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>()
-				.Where(x => x is ILoadable 
-				&& AssetDatabase.GetAssetPath(x).Contains("Resources"));
-
-			foreach (var loadable in loadables)
+			foreach (var loadable in _loadables)
 				Object.DestroyImmediate(loadable, true);
 
 			AssetDatabase.SaveAssets();
