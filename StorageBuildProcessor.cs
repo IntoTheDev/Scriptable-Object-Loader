@@ -28,7 +28,7 @@ namespace ToolBox.Loader
 				var path = $"Assets/Resources/{loadable.name}.asset";
 
 				AssetDatabase.CreateAsset(copy, path);
-				_loadables[i] = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
+				_loadables[i] = copy;
 			}
 
 			AssetDatabase.SaveAssets();
