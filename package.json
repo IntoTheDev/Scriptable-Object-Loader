@@ -1,0 +1,12 @@
+{
+  "name": "com.intothedev.loader",
+  "version": "1.3.0",
+  "displayName": "ScriptableObject Loader",
+  "description": "Load Scriptable Objects via code.",
+  "author": {
+    "name": "IntoTheDev",
+    "email": "indraayy322@gmail.com",
+    "url": "https://github.com/IntoTheDev"
+  },
+  "type": "tool"
+}
