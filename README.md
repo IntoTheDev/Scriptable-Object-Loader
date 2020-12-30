@@ -1,6 +1,20 @@
 # Scriptable Object Loader
 Load Scriptable Objects via code
 
+## How to Install
+### Git Installation (Best way to get latest version)
+
+If you have Git on your computer, you can open Package Manager indside Unity, select "Add package from Git url...", and paste link ```https://github.com/IntoTheDev/Scriptable-Object-Loader.git```
+
+or
+
+Open the manifest.json file of your Unity project.
+Add ```"com.intothedev.loader": "https://github.com/IntoTheDev/Scriptable-Object-Loader.git"```
+
+### Manual Installation
+Download latest package from the Release section
+Import Storage.unitypackage to your Unity Project
+
 ## Usage
 
 ### Creating ScriptableObject:
