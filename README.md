@@ -1,6 +1,10 @@
 # Scriptable Object Loader
 Load Scriptable Objects via code
 
+### TODO
+- [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```
+- [x] Git Package
+
 ## How to Install
 ### Git Installation (Best way to get latest version)
 
@@ -51,7 +55,3 @@ public class Player : MonoBehaviour
 	}
 }
 ```
-
-### TODO
-- [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```
-- [x] Git Package
