@@ -53,5 +53,5 @@ public class Player : MonoBehaviour
 ```
 
 ### TODO
-- [ ] Detailed guide
+- [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```
 - [x] Git Package
