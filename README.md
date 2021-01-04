@@ -51,7 +51,16 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
+		// Get single asset
 		_health = Storage.Get<PlayerConfig>().StartHealth;
+		
+		// Get all assets
+		var configs = Storage.GetAll<PlayerConfig>();
+		
+		foreach (var config in configs)
+		{
+			// Do something
+		}
 	}
 }
 ```
