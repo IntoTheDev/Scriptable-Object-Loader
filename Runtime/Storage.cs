@@ -50,7 +50,7 @@ namespace ToolBox.Loader
 
 		private static ScriptableObject[] GetAssets()
 		{
-#if ODIN_INSPECTOR
+#if UNITY_EDITOR && ODIN_INSPECTOR
 			var assets = AssetUtilities.GetAllAssetsOfType<ScriptableObject>().ToArray();
 #else
 			var assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
