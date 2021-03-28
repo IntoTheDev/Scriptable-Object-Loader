@@ -48,9 +48,10 @@ namespace ToolBox.Loader
 			return _assets.Where(a => a is T).Cast<T>();
 		}
 
+#if UNITY_EDITOR
 		private static ScriptableObject[] GetAssets()
 		{
-#if UNITY_EDITOR && ODIN_INSPECTOR
+#if ODIN_INSPECTOR
 			var assets = AssetUtilities.GetAllAssetsOfType<ScriptableObject>().ToArray();
 #else
 			var assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
@@ -58,6 +59,7 @@ namespace ToolBox.Loader
 
 			return assets;
 		}
+		#endif
 	}
 
 	public interface ILoadable { }
