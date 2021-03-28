@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if UNITY_EDITOR && ODIN_INSPECTOR
+using Sirenix.Utilities.Editor;
+#endif
 
 namespace ToolBox.Loader
 {
@@ -12,7 +15,7 @@ namespace ToolBox.Loader
 		private static void Setup()
 		{
 #if UNITY_EDITOR
-			var assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
+			var assets = GetAssets();
 #else
 			var assets = Resources.LoadAll<ScriptableObject>("");
 #endif
@@ -25,7 +28,7 @@ namespace ToolBox.Loader
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
-				_assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
+				_assets = GetAssets();
 #endif
 
 			for (int i = 0; i < _assets.Length; i++)
@@ -39,10 +42,21 @@ namespace ToolBox.Loader
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
-				_assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
+				_assets = GetAssets();
 #endif
 
 			return _assets.Where(a => a is T).Cast<T>();
+		}
+
+		private static ScriptableObject[] GetAssets()
+		{
+#if ODIN_INSPECTOR
+			var assets = AssetUtilities.GetAllAssetsOfType<ScriptableObject>().ToArray();
+#else
+			var assets = Resources.FindObjectsOfTypeAll<ScriptableObject>();
+#endif
+
+			return assets;
 		}
 	}
 
