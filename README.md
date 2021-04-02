@@ -16,7 +16,7 @@ Open the manifest.json file of your Unity project.
 Add ```"com.intothedev.loader": "https://github.com/IntoTheDev/Scriptable-Object-Loader.git"```
 
 ### Manual Installation (Version can be outdated)
-Download latest package from the Release section
+Download latest package from the Release section.
 Import Storage.unitypackage to your Unity Project
 
 ## Usage
