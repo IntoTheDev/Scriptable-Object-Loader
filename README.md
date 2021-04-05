@@ -3,6 +3,7 @@ Load Scriptable Objects via code
 
 ### TODO
 - [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```
+- [ ] Change ```Resources.FindObjectsOfTypeAll<ScriptableObject>();```
 - [x] Git Package
 
 ## How to Install
