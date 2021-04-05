@@ -2,9 +2,9 @@
 Load Scriptable Objects via code
 
 ### TODO
-- [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```
-- [ ] Change ```Resources.FindObjectsOfTypeAll<ScriptableObject>();``` to something else
 - [x] Git Package
+- [ ] Change ```Resources.FindObjectsOfTypeAll<ScriptableObject>();``` to something else
+- [ ] Replace ```Resources``` with ```Asset Bundles``` or ```Addressables```?
 
 ## How to Install
 ### Git Installation (Best way to get latest version)
