@@ -59,7 +59,7 @@ namespace ToolBox.Loader
 
 			return assets;
 		}
-		#endif
+#endif
 	}
 
 	public interface ILoadable { }
