@@ -5,7 +5,7 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-namespace ToolBox.Loader
+namespace ToolBox.Loader.Editor
 {
 	public class StorageBuildProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
 	{
@@ -18,14 +18,20 @@ namespace ToolBox.Loader
 			if (!AssetDatabase.IsValidFolder("Assets/Resources"))
 				AssetDatabase.CreateFolder("Assets", "Resources");
 
-			var loadables = Resources.FindObjectsOfTypeAll<ScriptableObject>().Where(x => x is ILoadable).ToArray();
+			var assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>();
+			var loadables = assets.Where(x => x is ILoadable).ToArray();
+			var initializables = assets.Where(x => x is IInitializableBeforeBuild).Cast<IInitializableBeforeBuild>();
+
+			foreach (var initializable in initializables)
+				initializable.Init();
+
 			_loadables = new ScriptableObject[loadables.Length];
 
 			for (int i = 0; i < loadables.Length; i++)
 			{
 				var loadable = loadables[i];
 				var copy = Object.Instantiate(loadable);
-				var path = $"Assets/Resources/{loadable.name}.asset";
+				string path = $"Assets/Resources/{loadable.name}.asset";
 
 				AssetDatabase.CreateAsset(copy, path);
 				_loadables[i] = copy;
