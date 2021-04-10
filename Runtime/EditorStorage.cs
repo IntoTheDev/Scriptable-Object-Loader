@@ -13,7 +13,7 @@ namespace ToolBox.Loader.Editor
 		public static List<T> GetAllAssetsOfType<T>() where T : Object
 		{
 #if ODIN_INSPECTOR
-			var assets = AssetUtilities.GetAllAssetsOfType<ScriptableObject>().ToArray();
+			var assets = AssetUtilities.GetAllAssetsOfType<ScriptableObject>().ToList();
 #else
 			var paths = AssetDatabase.GetAllAssetPaths();
 			var assets = new List<T>();
