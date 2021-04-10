@@ -26,8 +26,8 @@ namespace ToolBox.Loader.Editor
 					assets.Add(value);
 			}
 
-			return assets;
 #endif
+			return assets;
 		}
 	}
 }
