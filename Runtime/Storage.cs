@@ -19,9 +19,7 @@ namespace ToolBox.Loader
 #else
 			var assets = Resources.LoadAll<ScriptableObject>("");
 #endif
-			_assets = assets
-				.Where(x => x is ILoadable)
-				.ToArray();
+			_assets = assets.Where(x => x is ILoadable).ToArray();
 		}
 
 		public static T Get<T>() where T : ScriptableObject, ILoadable
