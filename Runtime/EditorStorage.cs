@@ -1,5 +1,6 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 #if ODIN_INSPECTOR
@@ -13,7 +14,7 @@ namespace ToolBox.Loader.Editor
 		public static List<T> GetAllAssetsOfType<T>() where T : Object
 		{
 #if ODIN_INSPECTOR
-			var assets = AssetUtilities.GetAllAssetsOfType<ScriptableObject>().ToList();
+			var assets = AssetUtilities.GetAllAssetsOfType<T>().ToList();
 #else
 			var paths = AssetDatabase.GetAllAssetPaths();
 			var assets = new List<T>();
