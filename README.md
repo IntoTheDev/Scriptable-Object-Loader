@@ -35,6 +35,11 @@ public class PlayerConfig : ScriptableObject, ILoadable
 	[SerializeField] private float _startHealth = 100f;
 
 	public float StartHealth => _startHealth;
+	
+	public void Load()
+	{
+		// Do initialization here
+	}
 }
 ```
 
