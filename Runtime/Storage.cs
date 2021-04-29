@@ -10,7 +10,7 @@ namespace ToolBox.Loader
 {
 	public class Storage : ScriptableObject
 	{
-		[SerializeField, HideInInspector] private ScriptableObject[] _assets = null;
+		[SerializeField] private ScriptableObject[] _assets = null;
 
 		private static ILoadable[] _loadables = new ILoadable[0];
 
