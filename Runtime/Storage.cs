@@ -64,7 +64,7 @@ namespace ToolBox.Loader
 
 		internal void LoadAssets()
 		{
-			// I don't know why but if you haven't selected this asset, array will be empty in build and after
+			// I don't know why but if you didn't select this asset, array will be empty in build and after
 			Selection.activeObject = this;
 
 			var assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>();
