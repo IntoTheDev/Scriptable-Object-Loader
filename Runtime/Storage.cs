@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 #if UNITY_EDITOR
@@ -7,31 +8,42 @@ using UnityEngine;
 
 namespace ToolBox.Loader
 {
-	public static class Storage
+	public class Storage : ScriptableObject
 	{
-		private static ScriptableObject[] _assets = null;
+		[SerializeField, HideInInspector] private ScriptableObject[] _assets = null;
+
+		private static ILoadable[] _loadables = new ILoadable[0];
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void Setup()
 		{
 #if UNITY_EDITOR
-			var assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>().ToArray();
+			LoadAssetsInEditor();
 #else
-			var assets = Resources.LoadAll<ScriptableObject>("");
+			_loadables = Resources.Load<Storage>("ToolBoxStorage")._assets.Cast<ILoadable>().ToArray();
 #endif
-			_assets = assets.Where(x => x is ILoadable).ToArray();
+			for (int i = 0; i < _loadables.Length; i++)
+				_loadables[i].Load();
 		}
+
+#if UNITY_EDITOR
+		internal void SetAssets(ScriptableObject[] loadables)
+		{
+			_assets = new ScriptableObject[loadables.Length];
+			Array.Copy(loadables, _assets, loadables.Length);
+		}
+#endif
 
 		public static T Get<T>() where T : ScriptableObject, ILoadable
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
-				_assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>().ToArray();
+				LoadAssetsInEditor();
 #endif
 
-			for (int i = 0; i < _assets.Length; i++)
-				if (_assets[i] is T asset)
-					return asset;
+			for (int i = 0; i < _loadables.Length; i++)
+				if (_loadables[i] is T loadable)
+					return loadable;
 
 			return null;
 		}
@@ -40,10 +52,21 @@ namespace ToolBox.Loader
 		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying)
-				_assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>().ToArray();
+				LoadAssetsInEditor();
 #endif
 
-			return _assets.Where(a => a is T).Cast<T>();
+			return _loadables.Where(a => a is T).Cast<T>();
 		}
+
+#if UNITY_EDITOR
+		private static void LoadAssetsInEditor()
+		{
+			_loadables = EditorStorage.
+				GetAllAssetsOfType<ScriptableObject>().
+				Where(x => x is ILoadable).
+				Cast<ILoadable>().
+				ToArray();
+		}
+#endif
 	}
 }

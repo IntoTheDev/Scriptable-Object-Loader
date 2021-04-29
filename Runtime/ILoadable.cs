@@ -1,4 +1,7 @@
 ﻿namespace ToolBox.Loader
 {
-	public interface ILoadable { }
+	public interface ILoadable 
+	{
+		void Load();
+	}
 }
