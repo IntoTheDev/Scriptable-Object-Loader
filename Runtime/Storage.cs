@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 #if UNITY_EDITOR
 using ToolBox.Loader.Editor;
+using UnityEditor;
 #endif
 using UnityEngine;
 
@@ -10,7 +12,7 @@ namespace ToolBox.Loader
 {
 	public class Storage : ScriptableObject
 	{
-		[SerializeField] private ScriptableObject[] _assets;
+		[SerializeField] private ScriptableObject[] _assets = null;
 
 		private static ILoadable[] _loadables = new ILoadable[0];
 
@@ -25,14 +27,6 @@ namespace ToolBox.Loader
 			for (int i = 0; i < _loadables.Length; i++)
 				_loadables[i].Load();
 		}
-
-#if UNITY_EDITOR
-		internal void SetAssets(ScriptableObject[] loadables)
-		{
-			_assets = new ScriptableObject[loadables.Length];
-			Array.Copy(loadables, _assets, loadables.Length);
-		}
-#endif
 
 		public static T Get<T>() where T : ScriptableObject, ILoadable
 		{
@@ -66,6 +60,22 @@ namespace ToolBox.Loader
 				Where(x => x is ILoadable).
 				Cast<ILoadable>().
 				ToArray();
+		}
+
+		internal void LoadAssets()
+		{
+			// I don't know why but if you haven't selected this asset, array will be empty in build and after
+			Selection.activeObject = this;
+
+			var assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>();
+			var loadables = assets.Where(x => x is ILoadable).ToArray();
+			var initializables = assets.Where(x => x is IInitializableBeforeBuild).Cast<IInitializableBeforeBuild>();
+
+			_assets = new ScriptableObject[loadables.Length];
+			Array.Copy(loadables, _assets, loadables.Length);
+
+			foreach (var initializable in initializables)
+				initializable.Init();
 		}
 #endif
 	}
