@@ -17,7 +17,7 @@ namespace ToolBox.Loader.Editor
 			var loadables = assets.Where(x => x is ILoadable).ToArray();
 			var initializables = assets.Where(x => x is IInitializableBeforeBuild).Cast<IInitializableBeforeBuild>();
 
-			assets.Where(x => x is Storage).Cast<Storage>().First().SetAssets(loadables);
+			Resources.Load<Storage>("ToolBoxStorage").SetAssets(loadables);
 
 			foreach (var initializable in initializables)
 				initializable.Init();
