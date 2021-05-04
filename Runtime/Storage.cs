@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 #if UNITY_EDITOR
 using ToolBox.Loader.Editor;
@@ -55,27 +54,25 @@ namespace ToolBox.Loader
 #if UNITY_EDITOR
 		private static void LoadAssetsInEditor()
 		{
-			_loadables = EditorStorage.
-				GetAllAssetsOfType<ScriptableObject>().
-				Where(x => x is ILoadable).
-				Cast<ILoadable>().
-				ToArray();
+			_loadables = EditorStorage
+				.GetAllAssetsOfType<ScriptableObject>()
+				.OfType<ILoadable>()
+				.ToArray();
 		}
 
 		internal void LoadAssets()
 		{
-			// I don't know why but if you don't select this asset before building, array will be empty in build
-			Selection.activeObject = this;
-
 			var assets = EditorStorage.GetAllAssetsOfType<ScriptableObject>();
-			var loadables = assets.Where(x => x is ILoadable).ToArray();
-			var initializables = assets.Where(x => x is IInitializableBeforeBuild).Cast<IInitializableBeforeBuild>();
+			var loadables = assets.OfType<ILoadable>().ToArray();
+			var initializables = assets.OfType<IInitializableBeforeBuild>();
 
 			_assets = new ScriptableObject[loadables.Length];
 			Array.Copy(loadables, _assets, loadables.Length);
 
 			foreach (var initializable in initializables)
 				initializable.Init();
+
+			EditorUtility.SetDirty(this);
 		}
 #endif
 	}
